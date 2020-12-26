@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 //using UnityEngine.SceneManagement;
 
 public class mouse_manager : MonoBehaviour
@@ -21,25 +22,14 @@ public class mouse_manager : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		mouse_movement();
 		mouse_handler_click();
-
-	}
-	private void mouse_movement()
-	{
-		float halfHeight = c.orthographicSize;
-		float halfWidth = c.aspect * halfHeight;
-		//Debug.Log(Input.mousePosition);
-		if (Input.mousePosition.x - transform.position.x > halfWidth - 1)
-        {
-			transform.Translate(Vector3.right * Time.deltaTime * 5);
-		}
 	}
 	private void mouse_handler_click()
 	{
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		if (Physics.Raycast(ray , out hit , raycastLenght))
 		{
+			Debug.Log(hit.collider.name);
 			if (hit.collider.tag == "town") {
 
 				if (Input.GetMouseButton(0))
