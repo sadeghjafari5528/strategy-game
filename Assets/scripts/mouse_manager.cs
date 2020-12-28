@@ -11,6 +11,10 @@ public class mouse_manager : MonoBehaviour
 	[SerializeField]
 	private GameObject town_button;
 	Camera c;
+	float minFov  = 15f;
+	float maxFov = 90f;
+	float sensitivity = 10f;
+ 
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -23,6 +27,8 @@ public class mouse_manager : MonoBehaviour
 	void Update()
 	{
 		mouse_handler_click();
+		zoomIN_zoomOut();
+
 	}
 	private void mouse_handler_click()
 	{
@@ -51,5 +57,22 @@ public class mouse_manager : MonoBehaviour
     {
 		town_button.SetActive(false);
 	}
+	private void zoomIN_zoomOut()
+    {
+		if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        {
+			if (Camera.main.orthographicSize < 10)
+			{
+				Camera.main.orthographicSize++;
+			}
+		}
+		else if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        {
+			if (Camera.main.orthographicSize > 2)
+			{
+				Camera.main.orthographicSize--;
+			}
+		}
+    }
 }
 
